@@ -1,0 +1,36 @@
+
+neighbors = {
+    'WA': ['NT', 'SA'],
+    'NT': ['WA', 'SA', 'Q'],
+    'SA': ['WA', 'NT', 'Q', 'NSW', 'V'],
+    'Q': ['NT', 'SA', 'NSW'],
+    'NSW': ['Q', 'SA', 'V'],
+    'V': ['SA', 'NSW'],
+    'T': []  
+}
+
+colors = ['Red', 'Green', 'Blue']
+
+def is_valid(state, node, color):
+    for neighbor in neighbors[node]:
+        if neighbor in state and state[neighbor] == color:
+            return False
+    return True
+
+def backtrack(state):
+    if len(state) == len(neighbors):
+        return state
+
+    unassigned = [region for region in neighbors if region not in state][0]
+
+    for color in colors:
+        if is_valid(state, unassigned, color):
+            state[unassigned] = color
+            result = backtrack(state)
+            if result:
+                return result
+            del state[unassigned]
+    return None
+
+solution = backtrack({})
+print("Solution:", solution)
