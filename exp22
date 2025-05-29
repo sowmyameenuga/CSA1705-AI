@@ -1,0 +1,16 @@
+% Facts: bird(Name, can_fly).
+bird(eagle, yes).
+bird(penguin, no).
+bird(ostrich, no).
+bird(sparrow, yes).
+bird(albatross, yes).
+bird(kiwi, no).
+
+% Query to check if a bird can fly
+can_fly(Bird) :-
+    bird(Bird, yes),
+    format('Yes, ~w can fly.~n', [Bird]).
+
+can_fly(Bird) :-
+    bird(Bird, no),
+    format('No, ~w cannot fly.~n', [Bird]).
