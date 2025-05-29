@@ -1,0 +1,33 @@
+from collections import deque
+
+def is_valid(m, c):
+    return (m == 0 or m >= c) and (3 - m == 0 or 3 - m >= 3 - c)
+
+def missionaries_cannibals():
+    visited = set()
+    queue = deque()
+    queue.append((3, 3, 1, []))  
+
+    while queue:
+        m, c, boat, path = queue.popleft()
+        if (m, c, boat) in visited:
+            continue
+        visited.add((m, c, boat))
+        if m == 0 and c == 0 and boat == 0:
+            for step in path:
+                print(step)
+            print("Reached goal!")
+            return
+
+        moves = [(1, 0), (2, 0), (0, 1), (0, 2), (1, 1)]  
+
+        for dm, dc in moves:
+            if boat:  
+                new_m, new_c, new_boat = m - dm, c - dc, 0
+            else:     
+                new_m, new_c, new_boat = m + dm, c + dc, 1
+
+            if 0 <= new_m <= 3 and 0 <= new_c <= 3 and is_valid(new_m, new_c):
+                queue.append((new_m, new_c, new_boat, path + [((m, c, boat), (dm, dc))]))
+
+missionaries_cannibals()
