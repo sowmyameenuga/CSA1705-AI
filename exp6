@@ -1,0 +1,39 @@
+class VacuumCleaner:
+    def __init__(self):
+        # Initial states of rooms: True means dirty, False means clean
+        self.rooms = {'A': True, 'B': True}
+        self.position = 'A'  # Starting position
+
+    def clean(self):
+        if self.rooms[self.position]:
+            print(f"Cleaning room {self.position}")
+            self.rooms[self.position] = False
+        else:
+            print(f"Room {self.position} is already clean")
+
+    def move(self, direction):
+        if direction == 'right' and self.position == 'A':
+            self.position = 'B'
+            print("Moved right to room B")
+        elif direction == 'left' and self.position == 'B':
+            self.position = 'A'
+            print("Moved left to room A")
+        else:
+            print("Cannot move in that direction")
+
+    def is_clean(self):
+        return not any(self.rooms.values())
+
+    def run(self):
+        while not self.is_clean():
+            self.clean()
+            if self.position == 'A' and self.rooms['B']:
+                self.move('right')
+            elif self.position == 'B' and self.rooms['A']:
+                self.move('left')
+            else:
+                break
+        print("All rooms are clean!")
+
+vacuum = VacuumCleaner()
+vacuum.run()
