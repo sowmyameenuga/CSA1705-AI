@@ -1,0 +1,19 @@
+% --- Symptoms (input as facts) ---
+symptom(john, fever).
+symptom(john, cough).
+symptom(john, sore_throat).
+
+symptom(mary, headache).
+symptom(mary, nausea).
+symptom(mary, sensitivity_to_light).
+
+% --- Diagnosis rules ---
+disease(john, flu) :-
+    symptom(john, fever),
+    symptom(john, cough),
+    symptom(john, sore_throat).
+
+disease(mary, migraine) :-
+    symptom(mary, headache),
+    symptom(mary, nausea),
+    symptom(mary, sensitivity_to_light).
